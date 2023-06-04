@@ -1,7 +1,7 @@
+require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
 const { renamedChannels } = require('./commands/rename-channel.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
@@ -58,4 +58,4 @@ client.on('voiceStateUpdate', oldMember => {
   }
 });
 
-client.login(token);
+client.login(process.env.TOKEN);
