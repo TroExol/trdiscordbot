@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { renamedChannels } = require('./commands/rename-channel.js');
+const express = require('express');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 
@@ -59,3 +60,12 @@ client.on('voiceStateUpdate', oldMember => {
 });
 
 client.login(process.env.TOKEN);
+
+const app = express();
+
+app.get('/', (request, response) => {
+  return response.send('OK');
+});
+app.listen(5000, () => {
+  console.log('App is listening on port 5000');
+});
