@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, ChannelType } = require('discord.js');
+const {channelEdit} = require('../utils.js');
 
 const renamedChannels = {};
 
@@ -26,8 +27,21 @@ module.exports = {
 			return;
 		}
 		
-		channel.setName(name);
-		renamedChannels[channel.id] = oldChannelName;
+		const leftTime = channelEdit.getLeftTime(channel.id);
+		if (channelEdit.count[channel.id] > 0 && leftTime > 0) {
+			const minutes = Math.floor((leftTime % (1000 * 60 * 60)) / (1000 * 60));
+			const seconds = Math.floor((leftTime % (1000 * 60)) / 1000);
+			await interaction.reply({content: `Перед возможностью изменения должно пройти ${minutes} мин. ${seconds} сек.`, ephemeral: true});
+			return;
+		}
+
+		await channel.edit({name});
+		channelEdit.increase(channel.id);
+
+		if (!renamedChannels[channel.id]) {
+			renamedChannels[channel.id] = oldChannelName;
+		}
+
 		await interaction.reply({ content: 'Готово!', ephemeral: true });
 	},
 
