@@ -2,8 +2,9 @@ require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { renamedChannels } = require('./commands/rename-channel.js');
-const {channelEdit, usersRedirected} = require('./utils.js');
+const keepAlive = require("./server");
+
+keepAlive();
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages] });
 
