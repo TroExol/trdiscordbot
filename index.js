@@ -47,7 +47,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.on(Events.ChannelCreate, (channel) => {
 	setTimeout(() => {
 		channel.setUserLimit(0);
-	}, 1000);
+	}, 3000);
 });
 
 client.login(process.env.TOKEN);
