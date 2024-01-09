@@ -7,6 +7,9 @@
     "start": "node index.js",
     "start:dev": "nodemon index.js"
   },
+  "engines": {
+    "node": "18.18.0"
+  },
   "author": "TroExol",
   "license": "ISC",
   "dependencies": {
