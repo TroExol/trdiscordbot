@@ -47,9 +47,13 @@ client.on(Events.InteractionCreate, async interaction => {
 
 client.on(Events.ChannelCreate, (channel) => {
 	setTimeout(() => {
-		const isChannelExists = !!channel.guild.channels.cache.find(({name}) => name === channel.name);
-		if (isChannelExists) {
-			channel.setUserLimit(0);
+		try {
+			const isChannelExists = !!channel.guild.channels.cache.find(({name}) => name === channel.name);
+			if (isChannelExists) {
+				channel.setUserLimit(0);
+			}
+		} catch (error) {
+			console.error('Ошибка изменения канала', error);
 		}
 	}, 3000);
 });
