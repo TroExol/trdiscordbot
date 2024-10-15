@@ -9,11 +9,11 @@ export const clearUserLimit: TClearUserLimitHandler = channel => {
     return;
   }
 
-  setTimeout(() => {
+  setTimeout(async () => {
     try {
       const isChannelExists = !!channel.guild.channels.cache.find(({ name }) => name === channel.name);
       if (isChannelExists) {
-        channel.setUserLimit(0);
+        await channel.setUserLimit(0);
       }
     } catch (error) {
       console.error('Ошибка изменения канала', error);
